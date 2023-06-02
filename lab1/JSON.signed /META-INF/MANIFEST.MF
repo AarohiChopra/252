@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: 11.0.17 (Eclipse Adoptium)
+
+Name: report.html
+SHA-256-Digest: 5x/kCUmebUNPQmYcecFeYuag9d13qnBJGla2PXi3Q1c=
+
+Name: JSON.hs
+SHA-256-Digest: zYRkNIQ9Q0c9txsEoWqR8Ed/Nb1WEmn8lC4MqwjPtxk=
+

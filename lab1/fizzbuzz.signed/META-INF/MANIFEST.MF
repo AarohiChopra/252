@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: 11.0.17 (Eclipse Adoptium)
+
+Name: fizzbuzz.hs
+SHA-256-Digest: a/4mDnax1Mtp7d3YINHn2Anc6ILuIvq/8qz/4kb1kjU=
+
+Name: report.html
+SHA-256-Digest: ZwLVDRNnm2S2n8B7yN20KSDA4wfXPlyYu9pAfxG9dBQ=
+

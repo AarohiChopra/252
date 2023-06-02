@@ -1,0 +1,150 @@
+\documentclass{article}
+
+\usepackage{fullpage}
+%\usepackage{citesort}
+%\usepackage{url}
+%\usepackage{listings}
+\usepackage{color}
+
+
+% Commands for formatting figures
+\newcommand{\mydefhead}[2]{\multicolumn{2}{l}{{#1}}&\mbox{\emph{#2}}\\}
+\newcommand{\mydefcase}[2]{\qquad\qquad& #1 &\mbox{#2}\\}
+
+% Commands for language expressions and values
+\newcommand{\true}{\mbox{\tt true}}
+\newcommand{\false}{\mbox{\tt false}}\title{Operational Semantics for Bool* Language}
+\newcommand{\ife}[3]{\mbox{\tt if}~{#1}~\mbox{\tt then}~{#2}~\mbox{\tt else}~{#3}}
+\newcommand{\suc}[1]{\mbox{\tt succ}~{#1}}
+\newcommand{\prd}[1]{\mbox{\tt pred}~{#1}}
+\newcommand{\secret}[1]{\mbox{\tt secret}~{#1}}
+
+% Big-step evaluation relation.
+% #1 is the expression.
+% #2 is the resulting value.
+\newcommand{\bstep}[2]{{#1} \Downarrow {#2}}
+\newcommand{\bigstep}[4]{{#1} \Downarrow {#2} \quad {#3} \Downarrow {#4}}
+
+% Command for formatting the name of the evaluation relation.
+\newcommand{\rel}[1]{ \mbox{\sc [#1]} }
+
+% Format for a big-step evaluation rule.
+% #1 is the name of the rule.
+% #2 are the premises.  Leave blank if there are none.
+% #3 is the conclusion.
+\newcommand{\bsrule}[3]{
+  \rel{#1} &
+  \frac{\strut\begin{array}{@{}c@{}} #2 \end{array}}
+       {\strut\begin{array}{@{}c@{}} #3 \end{array}}
+   \\~\\
+}
+\author{
+  Thomas H. Austin \\
+  Aarohi Chopra
+  }
+\begin{document}
+\maketitle
+
+Figure shows the list of expressions and values for the Bool* language. \\
+ 
+Big-step evaluation relation:
+\[
+  \bstep{e}{v}
+\]
+The above line should be read as ``the expression $e$ evaluates to the value $v$''. \\
+\begin{figure}
+\caption{Big-step semantics for Bool*}
+\label{fig:bigstep}
+  {\bf Evaluation Rules:~~~ \fbox{$\bstep{e}{v}$}} \\
+\[
+\begin{array}{r@{\qquad\qquad}c}
+\bsrule{B-Value}{}{
+  \bstep{v}{v}
+}
+\bsrule{B-ExpPublic}{}{
+\bstep{e}{v^L}
+}
+\bsrule{B-ExpSecret}{\bstep{e}{v^L}}{
+\bstep{secret(e)}{v^H}
+}
+\bsrule{B-ifTruePublic}
+{\bigstep{e_1^L}{True^L}{e_2^L}{v^L}
+}{
+\bstep{if \, e_1^L \, then \, e_2^L \, else \, e_3^L}{v^L}
+}
+\bsrule{B-ifTruePrivate}
+{\bigstep{e_1^H}{True^H}{e_2^H}{v^H}
+}{
+\bstep{if \, e_1^H \, then \, e_2^H \, else \, e_3^H}{v^H}
+}
+\bsrule{B-ifFalsePublic}
+{\bigstep{e_1^L}{False^L}{e_3^L}{v^L}
+}{
+\bstep{if \, e_1^L \, then \, e_2^L \, else \, e_3^L}{v^L}
+}
+\bsrule{B-ifFalsePrivate}
+{\bigstep{e_1^H}{False^H}{e_3^H}{v^H}
+}{
+\bstep{if \, e_1^H \, then \, e_2^H \, else \, e_3^H}{v^H}
+}
+\bsrule{B-SuccPublic}
+{\bstep{e^L}{n^L} \quad n'^L = n^L + 1
+}{
+\bstep{(succ e^L)}{n'^L}
+}
+\bsrule{B-SuccPrivate}
+{\bstep{e^H}{n^H} \quad n'^H = n^H + 1
+}{
+\bstep{(succ e^H)}{n'^H}
+}
+\bsrule{B-PredPublic}
+{\bstep{e^L}{n^L} \quad n'^L = n^L - 1
+}{
+\bstep{(pred e^L)}{n'^L}
+}
+\bsrule{B-PredPrivate}
+{\bstep{e^H}{n^H} \quad n'^H = n^H - 1
+}{
+\bstep{(pred e^H)}{n'^H}
+}
+\end{array}
+\]
+\end{figure}
+
+Figure~\ref{fig:bigstep} shows the big-step evaluation rules for the Bool* language.
+
+
+
+
+
+\section*{Exercise}
+
+Let's extend the language with new features.
+Our new language will be called BoolNum* and add the secret function to it.
+
+%\begin{figure}
+%\caption{The BoolNum* language}
+%\label{fig:lang2}
+\[
+  \begin{array}{ll@{\qquad\qquad}l}
+  \mydefhead{e ::=\qquad\qquad\qquad\qquad}{Expressions}
+  \mydefcase{\true}{true value}
+  \mydefcase{\false}{false value}
+  \mydefcase{n}{natural numbers}
+  \mydefcase{\ife e e e}{conditional expressions}
+  \mydefcase{\suc e}{successor}
+  \mydefcase{\prd e}{predecessor}
+  \mydefcase{\secret e}{Expression with a label}
+  \\
+  \mydefhead{v ::=\qquad\qquad\qquad\qquad}{Values}
+  \mydefcase{\true}{true value}
+  \mydefcase{\false}{false value}
+  \mydefcase{n}{natural numbers}
+\end{array}
+\]
+%\end{figure}
+
+
+
+\end{document}
+
