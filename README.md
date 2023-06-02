@@ -1,6 +1,6 @@
 # Programming Paradigms Repository
 
-This repository showcases my work for the graduate-level Advanced ### Programming Language Principles class. 
+This repository showcases my work for the graduate-level Advanced **Programming Language Principles** class. 
 It features examples of various programming constructs implemented in different programming languages. 
 The repository includes implementations in Haskell, JavaScript, Ruby, LaTeX, Operational Semantics, and more.
 
